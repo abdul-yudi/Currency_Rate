@@ -1,0 +1,75 @@
+body {
+  font-size: 15px;
+  margin: 0;
+  line-height: normal;
+  min-width: 400px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.card-header h2 {
+  font-size: 32px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.card-header .wrapper-input {
+  margin-left: 14px;
+}
+
+.card-header .calc-currency {
+  max-width: 70px;
+}
+
+.card-header h2 .btn {
+  float: right;
+  margin-top: 6px;
+  margin-left: 14px;
+  font-size: 11px;
+  padding: 2px 6px;
+}
+
+.card-header p {
+  margin-bottom: 6px;
+}
+
+.card-body {
+  min-height: 468px;
+  max-height: 468px;
+  overflow: auto;
+}
+
+.currency-list {
+  padding: 0;
+  list-style: none;
+}
+
+.currency-list {
+  display: table;
+  width: 100%;
+}
+
+.currency-list li {
+  padding: 10px 10px 0 10px;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 5px;
+  display: table;
+}
+
+.currency-list h3 {
+  font-size: 19px;
+}
+
+.currency-list p {
+  margin-bottom: 10px;
+}
+
+.currency-list .remove-list {
+  margin-left: 23px;
+  line-height: 18px;
+  font-size: 24px;
+  padding: 2px 4px;
+}
