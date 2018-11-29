@@ -1,6 +1,9 @@
 # Currency_Rate
 
-Created with React.js, Bootstrap, and Jquery
+Created with:
+- React.js
+- Bootstrap
+- Jquery
 
 Feature:
-You can add, remove, calculation rate
+- You can add, remove, calculation rate
