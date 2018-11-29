@@ -6,5 +6,6 @@ Created with:
 - Jquery
 
 
+
 Feature:
 - You can add, remove, calculation rate
