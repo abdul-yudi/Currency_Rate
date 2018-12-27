@@ -136,14 +136,18 @@ class App extends React.Component {
     if ($(".currency-list li").length > 2) {
       var activeCurrency = this.state.activeCurrency;
       var detailCurrency = this.state.detailCurrency;
-      var actCurrencyIndex = activeCurrency.indexOf(item);
-      var detlCurrencyIndex = detailCurrency.indexOf(item);
-      activeCurrency.splice(actCurrencyIndex, 1);
-      detailCurrency.splice(detlCurrencyIndex, 1);
-      this.activeCurrency();
-      $(".currency-list li#" + item)
-        .not(":first")
-        .remove();
+      this.setState(
+        {
+          activeCurrency: activeCurrency.filter(x => x !== item),
+          detailCurrency: detailCurrency.filter(
+            (v, x) => x.nameCurrency !== item
+          )
+        },
+        () => this.activeCurrency()
+      ),
+        $(".currency-list li#" + item)
+          .not(":first")
+          .remove();
     } else {
       alert("Can't remove one of last, Please add more");
     }
