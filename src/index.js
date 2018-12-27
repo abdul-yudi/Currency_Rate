@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 // jQuery
 import $ from "jquery";
 
+// Styles
 import "./styles.css";
 
 class App extends React.Component {
