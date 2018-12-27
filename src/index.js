@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import $ from "jquery";
 
 // Style
-import bootstrap from "./bootstrap.min.css";
+import "./bootstrap.min.css";
 import "./styles.css";
 
 class App extends React.Component {
