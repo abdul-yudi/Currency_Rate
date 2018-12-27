@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 // jQuery
 import $ from "jquery";
 
-// Styles
+// Style
 import "./styles.css";
 
 class App extends React.Component {
@@ -29,6 +29,7 @@ class App extends React.Component {
     this.calcCurrency = this.calcCurrency.bind(this);
   }
 
+  // FETCH API
   componentDidMount() {
     var Api = "https://api.exchangeratesapi.io/latest?base=USD";
     fetch(Api)
@@ -85,25 +86,36 @@ class App extends React.Component {
   // ACTIVE
   activeCurrency() {
     var rates = this.rates;
-    var actCurrency = this.state.activeCurrency;
-    this.setState({
-      detailCurrency: actCurrency.map(name => ({
-        nameCurrency: name,
-        rateCurrency: rates[name]
-      }))
-    });
+    var activeCurrency = this.state.activeCurrency;
+    if (activeCurrency.length > 0) {
+      this.setState({
+        detailCurrency: activeCurrency.map(name => ({
+          nameCurrency: name,
+          rateCurrency: rates[name]
+        }))
+      });
+      console.log(this.state.detailCurrency);
+    }
   }
 
   // ADD
   addCurrency() {
-    var detailCurrency = this.rates.detailCurrency;
+    var rates = this.rates;
     var nameCurrency = this.state.selectedValue;
-    var actCurrency = this.state.activeCurrency;
-    if ($(".select-currency option:selected").val() != "0") {
-      // Object.keys(detailCurrency)[key] == nameCurrency)
+    if (
+      $(".select-currency option:selected").val() != "0" &&
+      !$(".currency-list li#" + nameCurrency).length
+    ) {
       this.setState(
         {
-          activeCurrency: [...this.state.activeCurrency, nameCurrency]
+          activeCurrency: [...this.state.activeCurrency, nameCurrency],
+          detailCurrency: [
+            ...this.state.detailCurrency,
+            {
+              nameCurrency: nameCurrency,
+              rateCurrency: rates[nameCurrency]
+            }
+          ]
         },
         () => this.activeCurrency()
       );
@@ -113,27 +125,30 @@ class App extends React.Component {
         },
         "slow"
       );
-      // console.log(Object.keys(detailCurrency)[key] + " = ", nameCurrency);
     } else {
-      alert("Please select another / that already in the list ");
+      alert("Please select another / option already in the list");
     }
   }
 
   // REMOVE
   removeCurrency(item, index) {
-    var actCurrency = this.state.activeCurrency;
-    var detlCurrency = this.state.detailCurrency;
-    var actCurrencyIndex = actCurrency.indexOf(item);
-    var detlCurrencyIndex = detlCurrency.indexOf(item);
-    actCurrency.splice(actCurrencyIndex, 1);
-    detlCurrency.splice(detlCurrencyIndex, 1);
-    this.activeCurrency();
-    $(".currency-list li#" + item)
-      .not(":first")
-      .remove();
+    if ($(".currency-list li").length > 2) {
+      var activeCurrency = this.state.activeCurrency;
+      var detailCurrency = this.state.detailCurrency;
+      var actCurrencyIndex = activeCurrency.indexOf(item);
+      var detlCurrencyIndex = detailCurrency.indexOf(item);
+      activeCurrency.splice(actCurrencyIndex, 1);
+      detailCurrency.splice(detlCurrencyIndex, 1);
+      this.activeCurrency();
+      $(".currency-list li#" + item)
+        .not(":first")
+        .remove();
+    } else {
+      alert("Can't remove one of last, Please add more");
+    }
   }
 
-  // CALCULATE RATES
+  // CALCULATE
   calcCurrency(e) {
     if ($(".calc-currency").val() > 0) {
       var rates = this.rates;
@@ -149,10 +164,8 @@ class App extends React.Component {
         },
         () => this.activeCurrency()
       );
-      console.log(rates);
     } else {
       alert("Please input greather than 0");
-      $(".calc-currency").focus();
     }
   }
 
@@ -174,8 +187,9 @@ class App extends React.Component {
           <span className="currency-detail float-left">
             <p className="font-italic">
               <strong>
-                {this.state.calcCurrency + " " + this.state.baseCurrency + " "}
+                {this.state.calcCurrency + " " + this.state.baseCurrency}
               </strong>
+              &nbsp; = &nbsp;
               <strong>{item.nameCurrency + " " + item.rateCurrency}</strong>
             </p>
           </span>
