@@ -5,8 +5,8 @@ import ReactDOM from "react-dom";
 import $ from "jquery";
 
 // Style
-import "./bootstrap.min.css";
-import "./styles.css";
+import "./assets/css/bootstrap.min.css";
+import "./assets/css/styles.css";
 
 class App extends React.Component {
   constructor() {
